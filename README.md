@@ -43,3 +43,14 @@ this is not an program ,but a protocol that avCNCinterpolation used to communica
 avCNCmachine
 ============
 this is not an program, but an CAD design that shows how an standard 5 axis CNC machine with avCNCinterface is .
+
+
+
+插补器原理
+==
+
+插补器
+
+
+avOS 实时嵌入式系统
+==
