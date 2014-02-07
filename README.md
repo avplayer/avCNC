@@ -50,7 +50,3 @@ this is not an program, but an CAD design that shows how an standard 5 axis CNC 
 ==
 
 插补器
-
-
-avOS 实时嵌入式系统
-==
