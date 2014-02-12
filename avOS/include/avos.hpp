@@ -35,7 +35,32 @@ struct cotask{
 };
 
 namespace avOS{
+
+// a mutex for corotine ;) ya,  nice!
+class mutex
+{
+
+};
+
+
+}
+
+namespace avOS{
+
 void init();
 void sched_run();
+
+// 放弃 cpu 时间，直到一定的时间点后
+void timed_yield(std::size_t times);
+
+// 放弃 cpu 时间，等待 mutex
+void mutex_yield(const mutex &);
+
+
+
+// FOR 实时任务
+
+void timer_reexcute_on();
+
 }
 

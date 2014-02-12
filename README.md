@@ -49,4 +49,8 @@ this is not an program, but an CAD design that shows how an standard 5 axis CNC 
 插补器原理
 ==
 
-插补器
+插补器是 avCNC 的核心。avCNC 的插补器分成两个部分，一个使用数字积分法得出插补路径。另一个则利用定时器输出所需的插补脉冲
+
+
+
+
