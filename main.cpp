@@ -99,8 +99,9 @@ enum motor_speed_guide_t
 	SPEED_DECREASE = -1,
 	SPEED_MAINTAIN = 0,
 	SPEED_INCREASE = 1
-
 };
+
+
 
 class avCNC_PLL_output : avCNC::coro::coroutine
 {
@@ -132,7 +133,9 @@ public:
 
 			// 寻找加速原因
 
-			//  第一个原因是，列队后续长度很长
+			//  第一个原因是，列队后续长度很长, 如果执意执行减速，会导致列队没有数据后速度就降低为0了。
+			//  如果是这样，那么可以不需要减速。但是如果采取了加速，意味着，需要更长的后续数据
+
 
 			//  为每个轴跑一次
 
@@ -145,19 +148,19 @@ public:
 			// 如果大家都同意增加 speed 才能增加
 			if (ms[0] ==  SPEED_INCREASE && ms[1] == SPEED_INCREASE&& ms[2] == SPEED_INCREASE)
 			{
+				ms1 = SPEED_INCREASE;
 				
+			}else if (ms[0] !=  SPEED_DECREASE && ms[1] != SPEED_DECREASE && ms[2] != SPEED_DECREASE)
+			{
+				ms1 = SPEED_MAINTAIN;
 			}
-
-
-
-
-			// 执行加减速设定
-
-			boost::tribool speed_determing;
 
 			// 首先判断当前的速度是否到达 F 设定的速度，否，则重新设定
 
-			// 每隔 (1/15k) s 执行一次。
+
+			// 然后开始速度设定，因为基本上一个移动距离已经固定了，所以速度就是指时间。
+
+
 
 			// 计算下次执行时间 - aka， 控制电机速度
 
@@ -179,10 +182,11 @@ private:
     double get_next_pol();
 
     // 寻找该轴承是否有能提高速度的可能性，还是必须降低速度
-    motor_speed_guide_t motor_speed_look_ahead()
+    motor_speed_guide_t motor_speed_look_ahead(Axis)
     {
-
+		return SPEED_DECREASE;
 	}
+	
     double plane_speed();
 };
 
